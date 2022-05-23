@@ -44,15 +44,16 @@ let uploadFile = async (file) => {
 const createBook = async function (req, res) {
   try {
     //reading input from request body
-    let Body = req.files;
-    let arr = Object.keys(Body);
+    let Body = req.body;
+    // console.log(Body);
+    // let arr = Object.keys(Body);
 
-    //if empty request body
-    if (arr.length == 0) {
-      return res
-        .status(400)
-        .send({ status: false, message: "Please provide input" });
-    }
+    // //if empty request body
+    // if (arr.length == 0) {
+    //   return res
+    //     .status(400)
+    //     .send({ status: false, message: "Please provide input" });
+    // }
     //mandatory fields
     if (!Body.title) {
       return res
@@ -161,10 +162,7 @@ const createBook = async function (req, res) {
       //upload to s3 and get the uploaded link
       // res.send the link back to frontend/postman
       let uploadedFileURL = await uploadFile(files[0]);
-      console.log("here");
-      return res
-        .status(201)
-        .send({ msg: "file uploaded succesfully", data: uploadedFileURL });
+      Body.bookCover = uploadedFileURL;
     } else {
       return res.status(400).send({ msg: "No file found" });
     }
@@ -475,5 +473,4 @@ module.exports = {
   getBookDetails,
   updateBook,
   deleteBook,
-  writeFile,
 };
