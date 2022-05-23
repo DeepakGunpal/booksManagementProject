@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-const ObjectId = mongoose.Types.ObjectId;//--------------------------------1
+const ObjectId = mongoose.Types.ObjectId; //--------------------------------1
 
 //structure of document
 const bookSchema = new mongoose.Schema(
   {
     title: { type: String, trim: true },
     excerpt: { type: String, trim: true },
-
+    bookCover: { type: String, trim: true },
     userId: { type: ObjectId, ref: "user", trim: true },
     ISBN: { type: String, trim: true },
     category: { type: String, trim: true },
